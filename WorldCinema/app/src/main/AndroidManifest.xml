@@ -2,13 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.worldcinema">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
-        android:label="World Cinema"
         android:icon="@drawable/logo"
+        android:label="World Cinema"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.WorldCinema">
+        <activity
+            android:name=".register"
+            android:exported="false" />
         <activity
             android:name=".MainScreen"
             android:exported="false" />
@@ -23,7 +28,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

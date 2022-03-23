@@ -153,8 +153,7 @@ public class new_films_fragment extends Fragment {
                     img_switcher.setImageResource(images[position]);
                 }
             } catch (Exception e){
-                e.printStackTrace();
-                return true;
+
             }
             return true;
         }

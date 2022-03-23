@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="150dp"
             android:gravity="center">
 
             <ImageView
@@ -32,25 +31,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:orientation="vertical"
-            android:layout_marginBottom="75dp">
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
 
             <EditText
+                android:id="@+id/act_reg_ed_firstname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_style"
+                android:textSize="14dp"
+                android:hint="Имя"
+                android:textColor="#E5E5E5"
+                android:textColorHint="#E5E5E5"/>
+
+            <EditText
+                android:id="@+id/act_reg_ed_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_style"
+                android:textSize="14dp"
+                android:hint="Фамилия"
+                android:layout_marginTop="15dp"
+                android:textColor="#E5E5E5"
+                android:textColorHint="#E5E5E5"/>
+
+            <EditText
+                android:id="@+id/act_reg_ed_email"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text_style"
                 android:textSize="14dp"
                 android:hint="E-mail"
+                android:layout_marginTop="15dp"
                 android:textColor="#E5E5E5"
                 android:textColorHint="#E5E5E5"/>
 
             <EditText
+                android:id="@+id/act_reg_ed_password"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/edit_text_style"
                 android:textSize="14dp"
-                android:layout_marginTop="20dp"
                 android:hint="Пароль"
+                android:layout_marginTop="15dp"
+                android:textColor="#E5E5E5"
+                android:textColorHint="#E5E5E5"/>
+
+            <EditText
+                android:id="@+id/act_reg_ed_password_repeat"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_style"
+                android:textSize="14dp"
+                android:hint="Повторите пароль"
+                android:layout_marginTop="15dp"
                 android:textColor="#E5E5E5"
                 android:textColorHint="#E5E5E5"/>
 
@@ -60,28 +94,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="50dp"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/act_log_btn_log"
+                android:id="@+id/act_reg_btn_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_login_style"
-                android:onClick="login_click"
-                android:text="Войти"
+                android:text="Зарегистрироваться"
                 android:textSize="14dp"
+                android:onClick="r_register_click"
                 android:textAllCaps="false"/>
 
             <Button
-                android:id="@+id/act_log_btn_reg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_reg_style"
                 android:textColor="#EF3A01"
-                android:text="Регистрация"
-                android:onClick="register_click"
-                android:textSize="14dp"
                 android:layout_marginTop="15dp"
+                android:text="У меня уже есть аккаунт"
+                android:textSize="14dp"
                 android:textAllCaps="false"/>
 
         </LinearLayout>
