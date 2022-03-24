@@ -3,6 +3,7 @@ package com.example.worldcinema;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -34,6 +35,6 @@ public class register extends AppCompatActivity {
         password = et_password.getText().toString();
         repeat = et_repeat.getText().toString();
 
-        new RegMock(email, firstName, lastName, password);
+        new RegMock(email, firstName, lastName, password, this);
     }
 }

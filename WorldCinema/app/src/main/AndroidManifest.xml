@@ -10,6 +10,7 @@
         android:label="World Cinema"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.WorldCinema">
         <activity
             android:name=".register"

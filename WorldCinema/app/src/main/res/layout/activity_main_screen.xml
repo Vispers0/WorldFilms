@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#1C1A19"
-        app:menu="@menu/menu"/>
+        app:menu="@menu/menu" />
 
 </RelativeLayout>
