@@ -73,6 +73,7 @@
                 android:background="@drawable/edit_text_style"
                 android:textSize="14dp"
                 android:hint="Пароль"
+                android:inputType="textPassword"
                 android:layout_marginTop="15dp"
                 android:textColor="#E5E5E5"
                 android:textColorHint="#E5E5E5"/>
@@ -84,6 +85,7 @@
                 android:background="@drawable/edit_text_style"
                 android:textSize="14dp"
                 android:hint="Повторите пароль"
+                android:inputType="textPassword"
                 android:layout_marginTop="15dp"
                 android:textColor="#E5E5E5"
                 android:textColorHint="#E5E5E5"/>

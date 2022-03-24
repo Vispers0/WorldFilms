@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.worldcinema.Networking.RegUser.RegMock;
 
@@ -35,6 +36,36 @@ public class register extends AppCompatActivity {
         password = et_password.getText().toString();
         repeat = et_repeat.getText().toString();
 
-        new RegMock(email, firstName, lastName, password, this);
+        if (validate()){
+            new RegMock(email, firstName, lastName, password, this);
+        }
+        else{
+            Toast.makeText(register.this, "Введённые пароли не совпадают", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean validate(){
+        if (email.equals("")){
+            Toast.makeText(register.this, "Введите электронную почту", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (firstName.equals("")){
+            Toast.makeText(register.this, "Введите имя", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (lastName.equals("")){
+            Toast.makeText(register.this, "Введите фамилию", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (password.equals("")){
+            Toast.makeText(register.this, "Введите пароль", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (repeat.equals("")){
+            Toast.makeText(register.this, "Введите пароль ещё раз", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return repeat.equals(password);
     }
 }

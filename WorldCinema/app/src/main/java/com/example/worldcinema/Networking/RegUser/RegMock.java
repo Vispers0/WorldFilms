@@ -1,14 +1,13 @@
 package com.example.worldcinema.Networking.RegUser;
 
 import android.content.Context;
-import android.util.Log;
+import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.example.worldcinema.register;
-
-import java.util.List;
+import com.example.worldcinema.Networking.API;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,9 +30,16 @@ public class RegMock {
     }
 
     public void register_user(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://cinema.areas.su")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client.build())
                 .build();
 
         API api = retrofit.create(API.class);
@@ -45,24 +51,25 @@ public class RegMock {
         body.password = password;
 
 
-
-        Call<Void> call;
-        call = api.regUser(body);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show();
+        AsyncTask.execute(()->{
+            Call<Void> call;
+            call = api.regUser(body);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()){
+                        Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                t.printStackTrace();
-            }
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         });
     }
 

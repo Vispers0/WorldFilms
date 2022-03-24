@@ -1,4 +1,6 @@
-package com.example.worldcinema.Networking.RegUser;
+package com.example.worldcinema.Networking;
+
+import com.example.worldcinema.Networking.RegUser.RegBody;
 
 import java.util.List;
 

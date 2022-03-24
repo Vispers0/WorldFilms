@@ -1,15 +1,14 @@
 package com.example.worldcinema.Networking.RegUser;
 
-public class RegBody {
-    public String email;
-    public String firstname;
-    public String lastname;
-    public String password;
+import com.google.gson.annotations.SerializedName;
 
-//    public RegBody(String email, String firstname, String lastname, String password){
-//        this.email = email;
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.password = password;
-//    }
+public class RegBody {
+    @SerializedName("email")
+    public String email;
+    @SerializedName("firstName")
+    public String firstname;
+    @SerializedName("lastName")
+    public String lastname;
+    @SerializedName("password")
+    public String password;
 }
