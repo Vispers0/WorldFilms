@@ -1,9 +1,13 @@
-package com.example.worldcinema.Networking.RegUser;
+package com.example.worldcinema.Networking.LogUser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Trace;
 import android.widget.Toast;
 
+import com.example.worldcinema.MainActivity;
+import com.example.worldcinema.MainScreen;
 import com.example.worldcinema.Networking.API;
 import com.example.worldcinema.R;
 
@@ -15,23 +19,23 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RegMock {
+public class LogMock {
+    private String email;
+    private String password;
 
-    private String email, firstname, lastname, password;
     private Context context;
-    private String BASE_URL = String.valueOf(R.string.BASE_URL);
 
-    public RegMock(String email, String firstname, String lastname, String password, Context context){
+    public LogMock(String email, String password, Context context){
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
         this.password = password;
         this.context = context;
 
-        register_user();
+        log_user();
     }
 
-    public void register_user(){
+    public void log_user(){
+        LogBody logBody = new LogBody(email, password);
+
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -46,35 +50,28 @@ public class RegMock {
 
         API api = retrofit.create(API.class);
 
-        RegBody body = new RegBody();
-        body.email = email;
-        body.firstname = firstname;
-        body.lastname = lastname;
-        body.password = password;
-
-
         AsyncTask.execute(()->{
-            Call<Void> call;
-            call = api.regUser(body);
-            call.enqueue(new Callback<Void>() {
+            Call<LogResponse> call;
+            call = api.logUser(logBody);
+            call.enqueue(new Callback<LogResponse>() {
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
+                public void onResponse(Call<LogResponse> call, Response<LogResponse> response) {
                     if (response.isSuccessful()){
-                        Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show();
+                        context.startActivity(new Intent(context, MainScreen.class));
+                        int token = response.body().get_token();
+                        Toast.makeText(context, "Successful. Your token is: " + token, Toast.LENGTH_SHORT).show();
                     }
-                    else {
+                    else{
                         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
+                public void onFailure(Call<LogResponse> call, Throwable t) {
+                    Toast.makeText(context, "Response Error", Toast.LENGTH_SHORT).show();
                     t.printStackTrace();
                 }
             });
         });
     }
-
-
-
 }
