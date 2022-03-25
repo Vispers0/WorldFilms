@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".new_films_fragment">
+    tools:context=".Fragments.new_films_fragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,12 +25,14 @@
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
 
-            <ImageSwitcher
-                android:id="@+id/img_switcher"
-                android:background="@color/app_background"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    
+
+                </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
 
