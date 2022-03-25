@@ -2,6 +2,7 @@ package com.example.worldcinema;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +43,10 @@ public class register extends AppCompatActivity {
         else{
             Toast.makeText(register.this, "Введённые пароли не совпадают", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void have_acc_click(View view){
+        startActivity(new Intent(register.this, MainActivity.class));
     }
 
     private boolean validate(){

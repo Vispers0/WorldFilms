@@ -110,10 +110,12 @@
                 android:textAllCaps="false"/>
 
             <Button
+                android:id="@+id/act_reg_btn_have_acc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_reg_style"
                 android:textColor="#EF3A01"
+                android:onClick="have_acc_click"
                 android:layout_marginTop="15dp"
                 android:text="У меня уже есть аккаунт"
                 android:textSize="14dp"
