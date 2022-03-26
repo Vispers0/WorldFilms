@@ -17,15 +17,8 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24dp"
-                android:text="Altered Carbon"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
-
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">

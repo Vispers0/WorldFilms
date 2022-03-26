@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.GestureDetector;
@@ -20,14 +22,14 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import com.example.worldcinema.MainScreen;
+import com.example.worldcinema.Networking.GetFilms.FilmsMock;
 import com.example.worldcinema.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class new_films_fragment extends Fragment {
-
-    private final int[] images = {R.drawable.film_cover, R.drawable.logo, R.drawable.ic_launcher_background, R.drawable.btn_main};
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -35,11 +37,11 @@ public class new_films_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ImageSwitcher img_switcher;
+    private RecyclerView recycler;
+    private FilmAdapter adapter;
+    private ArrayList<Film> filmsList;
 
-    private GestureDetector detector;
-
-    private int position = 0;
+    public ArrayList<test> testArrayList;
 
     public new_films_fragment() {
 
@@ -66,80 +68,18 @@ public class new_films_fragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        img_switcher = getView().findViewById(R.id.img_switcher);
-        buildImageSwitcher();
+        recycler = view.findViewById(R.id.recycle);
+
+        LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        recycler.setLayoutManager(manager);
+
+        filmsList = new ArrayList<>();
+        adapter = new FilmAdapter(filmsList, getContext());
+
+        new FilmsMock();
+
+        adapter.notifyDataSetChanged();
+
+        recycler.setAdapter(adapter);
     }
-
-    private void buildImageSwitcher(){
-        Log.i("SWITCHER", img_switcher.toString());
-        Log.i("IMAGES", Arrays.toString(images));
-
-        Animation anim_in = new AlphaAnimation(0, 1);
-        Animation anim_out = new AlphaAnimation(1, 0);
-        anim_in.setDuration(800);
-        anim_out.setDuration(800);
-
-        img_switcher.setInAnimation(anim_in);
-        img_switcher.setOutAnimation(anim_out);
-        img_switcher.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                ImageView imageView = new ImageView(getContext());
-                imageView.setBackgroundColor(0xFF000000);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setLayoutParams(
-                        new FrameLayout.LayoutParams(
-                                FrameLayout.LayoutParams.MATCH_PARENT,
-                                FrameLayout.LayoutParams.WRAP_CONTENT
-                        )
-                );
-                return imageView;
-            }
-        });
-
-        img_switcher.setImageResource(images[0]);
-    }
-
-//    public class GD extends GestureDetector.SimpleOnGestureListener {
-//        private static final int SWIPE_MIN_DISTANCE = 120;
-//        private static final int SWIPE_MAX_OFF_PATH = 250;
-//        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-//
-//        @Override
-//        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY){
-//            try {
-//                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-//                    return false;
-//                if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-//                    pos_plus();
-//                    img_switcher.setImageResource(images[position]);
-//                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-//                    pos_minus();
-//                    img_switcher.setImageResource(images[position]);
-//                }
-//            } catch (Exception e) {
-//                // nothing
-//            }
-//            return false;
-//        }
-//
-//        @Override
-//        public boolean onDown(MotionEvent e) {
-//            return true;
-//        }
-//
-//        private void pos_plus(){
-//            position++;
-//            if (position > images.length - 1){
-//                position = 0;
-//            }
-//        }
-//
-//        private void pos_minus(){
-//            position--;
-//            if (position < 0){
-//                position = images.length - 1;
-//            }
-//        }
-//    }
 }
