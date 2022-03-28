@@ -47,8 +47,7 @@ public class FilmsMock {
             call.enqueue(new Callback<FilmsResponse>() {
                 @Override
                 public void onResponse(Call<FilmsResponse> call, Response<FilmsResponse> response) {
-                    if (response.isSuccessful())
-                        Log.i("RESPONSE_FILMS", response.body().getName() + " - " + response.body().getPoster());
+
                 }
 
                 @Override
