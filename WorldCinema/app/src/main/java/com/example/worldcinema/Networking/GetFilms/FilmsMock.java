@@ -21,6 +21,9 @@ public class FilmsMock {
 
     ArrayList<test> arrayList;
 
+    public String name;
+    public String poster;
+
     public FilmsMock(){
         arrayList = new ArrayList<>();
         getFilmInfo();
@@ -41,20 +44,20 @@ public class FilmsMock {
 
         API api = retrofit.create(API.class);
 
-        AsyncTask.execute(()->{
-            Call<FilmsResponse> call;
-            call = api.getFilms();
-            call.enqueue(new Callback<FilmsResponse>() {
-                @Override
-                public void onResponse(Call<FilmsResponse> call, Response<FilmsResponse> response) {
+        Call<FilmsResponse> call;
+        call = api.getFilms();
+        call.enqueue(new Callback<FilmsResponse>() {
+            @Override
+            public void onResponse(Call<FilmsResponse> call, Response<FilmsResponse> response) {
+                if (response.isSuccessful()){
 
                 }
+            }
 
-                @Override
-                public void onFailure(Call<FilmsResponse> call, Throwable t) {
+            @Override
+            public void onFailure(Call<FilmsResponse> call, Throwable t) {
 
-                }
-            });
+            }
         });
 
     }

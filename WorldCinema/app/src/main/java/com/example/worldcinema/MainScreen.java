@@ -3,7 +3,9 @@ package com.example.worldcinema;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -13,12 +15,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageSwitcher;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.worldcinema.Fragments.new_films_fragment;
 import com.example.worldcinema.Fragments.profile;
+import com.example.worldcinema.Networking.GetChats.ChatMock;
 
 public class MainScreen extends AppCompatActivity {
+
+    LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,11 @@ public class MainScreen extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setMainFragment();
+
+        layout = findViewById(R.id.chats_layout);
+        layout.setOnClickListener(view -> {
+            new ChatMock(MainScreen.this);
+        });
     }
 
     public void setMainFragment(){
@@ -44,6 +55,6 @@ public class MainScreen extends AppCompatActivity {
     }
 
     public void chatsClick(View v){
-        startActivity(new Intent(MainScreen.this, Chats.class));
+
     }
 }

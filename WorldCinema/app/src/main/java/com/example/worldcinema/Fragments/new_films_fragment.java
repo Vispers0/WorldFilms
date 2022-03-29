@@ -76,7 +76,7 @@ public class new_films_fragment extends Fragment {
         filmsList = new ArrayList<>();
         adapter = new FilmAdapter(filmsList, getContext());
 
-        new FilmsMock();
+        FilmsMock filmsMock = new FilmsMock();
 
         adapter.notifyDataSetChanged();
 

@@ -2,8 +2,10 @@ package com.example.worldcinema.Networking.LogUser;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Trace;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.worldcinema.MainActivity;
@@ -25,10 +27,20 @@ public class LogMock {
 
     private Context context;
 
+    SharedPreferences preferences;
+
+    SharedPreferences.Editor editor;
+
+    private static final String APP_PREFERENCES = "Prefs";
+    private static final String APP_PREFERENCES_TOKEN = "Token";
+
     public LogMock(String email, String password, Context context){
         this.email = email;
         this.password = password;
         this.context = context;
+
+        preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        editor = preferences.edit();
 
         log_user();
     }
@@ -50,28 +62,28 @@ public class LogMock {
 
         API api = retrofit.create(API.class);
 
-        AsyncTask.execute(()->{
-            Call<LogResponse> call;
-            call = api.logUser(logBody);
-            call.enqueue(new Callback<LogResponse>() {
-                @Override
-                public void onResponse(Call<LogResponse> call, Response<LogResponse> response) {
-                    if (response.isSuccessful()){
-                        context.startActivity(new Intent(context, MainScreen.class));
-                        int token = response.body().get_token();
-                        Toast.makeText(context, "Successful. Your token is: " + token, Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                    }
+        Call<LogResponse> call;
+        call = api.logUser(logBody);
+        call.enqueue(new Callback<LogResponse>() {
+            @Override
+            public void onResponse(Call<LogResponse> call, Response<LogResponse> response) {
+                if (response.isSuccessful()){
+                    context.startActivity(new Intent(context, MainScreen.class));
+                    int token = response.body().get_token();
+                    editor.putString(APP_PREFERENCES_TOKEN, String.valueOf(token));
+                    editor.apply();
+                    Toast.makeText(context, "Successful. Your token is: " + token, Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                @Override
-                public void onFailure(Call<LogResponse> call, Throwable t) {
-                    Toast.makeText(context, "Response Error", Toast.LENGTH_SHORT).show();
-                    t.printStackTrace();
-                }
-            });
+            @Override
+            public void onFailure(Call<LogResponse> call, Throwable t) {
+                Toast.makeText(context, "Response Error", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
         });
     }
 }
