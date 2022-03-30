@@ -24,8 +24,6 @@ import com.example.worldcinema.Networking.GetChats.ChatMock;
 
 public class MainScreen extends AppCompatActivity {
 
-    LinearLayout layout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +31,6 @@ public class MainScreen extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setMainFragment();
-
-        layout = findViewById(R.id.chats_layout);
-        layout.setOnClickListener(view -> {
-            new ChatMock(MainScreen.this);
-        });
     }
 
     public void setMainFragment(){
@@ -55,6 +48,6 @@ public class MainScreen extends AppCompatActivity {
     }
 
     public void chatsClick(View v){
-
+        new ChatMock(MainScreen.this);
     }
 }

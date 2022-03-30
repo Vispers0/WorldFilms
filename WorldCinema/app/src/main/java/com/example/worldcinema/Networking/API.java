@@ -22,7 +22,7 @@ public interface API {
     Call<LogResponse> logUser(@Body LogBody logBody);
 
     @GET("/movies?filter=new")
-    Call<FilmsResponse> getFilms();
+    Call<List<FilmsResponse>> getFilms();
 
     @GET("/user/chats")
     Call<List<ChatResponse>> getUserChats(@Header("Authorization") String token);

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -40,13 +41,8 @@ public class ChatMock {
 
     Context context;
 
-    Intent intent;
-
-    public ChatMock(Context context, Intent intent){
-        getChats();
-
+    public ChatMock(Context context){
         this.context = context;
-        this.intent = intent;
 
         preferences = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
 
@@ -54,6 +50,8 @@ public class ChatMock {
         editor = preferences.edit();
 
         chats = new ArrayList<>();
+
+        getChats();
     }
 
     public void getChats(){
@@ -71,28 +69,38 @@ public class ChatMock {
 
         API api = retrofit.create(API.class);
 
-        Call<List<ChatResponse>> call;
-        call = api.getUserChats(token);
-        call.enqueue(new Callback<List<ChatResponse>>() {
-            @Override
-            public void onResponse(Call<List<ChatResponse>> call, Response<List<ChatResponse>> response) {
-                if (response.isSuccessful()){
-                    for (int i = 0; i < response.body().size() - 1; i++){
-                        chats.add(new ChatInfo(response.body().get(i).getChatID(), response.body().get(i).getChatName()));
+        AsyncTask.execute(()->{
+
+            Call<List<ChatResponse>> call;
+            call = api.getUserChats(token);
+            call.enqueue(new Callback<List<ChatResponse>>() {
+                @Override
+                public void onResponse(Call<List<ChatResponse>> call, Response<List<ChatResponse>> response) {
+                    if (response.isSuccessful()){
+                        Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < response.body().size() - 1; i++) {
+                            chats.add(new ChatInfo(response.body().get(i).getChatID(), response.body().get(i).getChatName()));
+                        }
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("chats", chats);
+
                         Intent intent = new Intent(context, Chats.class);
-                        intent.putExtra("chats", chats);
+                        intent.putExtras(bundle);
+
                         context.startActivity(intent);
                     }
+                    else {
+                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else {
-                    Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
-                t.printStackTrace();
-            }
+                @Override
+                public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+
         });
     }
 }

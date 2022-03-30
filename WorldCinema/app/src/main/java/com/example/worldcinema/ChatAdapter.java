@@ -11,13 +11,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.example.worldcinema.Networking.GetChats.ChatInfo;
+
 import java.util.List;
 
-public class ChatAdapter extends ArrayAdapter<Chat> {
+public class ChatAdapter extends ArrayAdapter<ChatInfo> {
     private int resLayout;
     private Context context;
 
-    public ChatAdapter(@NonNull Context context, int resource, @NonNull List<Chat> objects) {
+    public ChatAdapter(@NonNull Context context, int resource, @NonNull List<ChatInfo> objects) {
         super(context, resource, objects);
 
         this.resLayout = resource;
@@ -32,19 +34,14 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
             convertView = li.inflate(resLayout, null);
         }
 
-        Chat chat = getItem(position);
+        ChatInfo chat = getItem(position);
 
         if (chat != null){
             ImageView img = convertView.findViewById(R.id.chat_img);
             TextView name = convertView.findViewById(R.id.chat_name);
             TextView message = convertView.findViewById(R.id.chat_msg);
 
-            img.setImageResource(chat.getImage());
-            name.setText(chat.getTitle());
-
-            if (chat.getMessage() != null || chat.getMessage() != ""){
-                message.setText(chat.getMessage());
-            }
+            name.setText(chat.getChatName());
         }
 
         return convertView;

@@ -1,6 +1,7 @@
 package com.example.worldcinema.Fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,8 +66,8 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmHolder> {
             filmTitle.setText(title);
         }
 
-        public void setFilmCover(int resId){
-            filmCover.setImageResource(resId);
+        public void setFilmCover(Bitmap resId){
+            filmCover.setImageBitmap(resId);
         }
     }
 }

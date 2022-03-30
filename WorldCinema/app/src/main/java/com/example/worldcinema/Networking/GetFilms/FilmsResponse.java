@@ -1,18 +1,20 @@
 package com.example.worldcinema.Networking.GetFilms;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.SerializedName;
 
 public class FilmsResponse {
     @SerializedName("name")
     private String name;
     @SerializedName("poster")
-    private String poster;
+    private Bitmap poster;
 
     public String getName() {
         return name;
     }
 
-    public String getPoster() {
+    public Bitmap getPoster() {
         return poster;
     }
 
@@ -20,7 +22,7 @@ public class FilmsResponse {
         this.name = name;
     }
 
-    public void setPoster(String poster) {
+    public void setPoster(Bitmap poster) {
         this.poster = poster;
     }
 }

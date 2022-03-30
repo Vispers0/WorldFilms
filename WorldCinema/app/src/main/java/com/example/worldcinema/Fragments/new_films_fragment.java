@@ -1,5 +1,6 @@
 package com.example.worldcinema.Fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import com.example.worldcinema.MainScreen;
+import com.example.worldcinema.Networking.GetFilms.FilmSetter;
 import com.example.worldcinema.Networking.GetFilms.FilmsMock;
 import com.example.worldcinema.R;
 
@@ -73,10 +75,20 @@ public class new_films_fragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         recycler.setLayoutManager(manager);
 
-        filmsList = new ArrayList<>();
-        adapter = new FilmAdapter(filmsList, getContext());
-
         FilmsMock filmsMock = new FilmsMock();
+
+        filmsList = new ArrayList<>();
+
+        FilmSetter fs = new FilmSetter();
+
+        ArrayList<String> titles = fs.getTitles();
+        ArrayList<Bitmap> images = fs.getCovers();
+
+        for (int i =0; i < titles.size(); i ++){
+            filmsList.add(new Film(titles.get(i), images.get(i)));
+        }
+
+        adapter = new FilmAdapter(filmsList, getContext());
 
         adapter.notifyDataSetChanged();
 

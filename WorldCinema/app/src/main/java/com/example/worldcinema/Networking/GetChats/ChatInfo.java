@@ -1,6 +1,8 @@
 package com.example.worldcinema.Networking.GetChats;
 
-public class ChatInfo {
+import java.io.Serializable;
+
+public class ChatInfo implements Serializable {
     private String chatID;
     private String chatName;
 
