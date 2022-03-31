@@ -1,12 +1,12 @@
 package com.example.worldcinema.Networking.GetFilms;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.example.worldcinema.Fragments.test;
+import com.example.worldcinema.Fragments.FilmAdapter;
+import com.example.worldcinema.Fragments.new_films_fragment;
 import com.example.worldcinema.Networking.API;
+import com.example.worldcinema.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FilmsMock {
 
-    ArrayList<Film> films;
+    private Context context;
 
-    public FilmsMock(){
-        films = new ArrayList<>();
-
-        getFilmInfo();
+    public FilmsMock(Context context){
+        this.context = context;
     }
 
-    public void getFilmInfo(){
+    public void getFilms(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -44,24 +42,25 @@ public class FilmsMock {
 
         API api = retrofit.create(API.class);
 
-        Call<List<FilmsResponse>> call;
+        Call<ArrayList<FilmsResponse>> call;
         call = api.getFilms();
-        call.enqueue(new Callback<List<FilmsResponse>>() {
-            @Override
-            public void onResponse(Call<List<FilmsResponse>> call, Response<List<FilmsResponse>> response) {
-                if (response.isSuccessful()){
-                    for (int i = 0; i < response.body().size(); i++) {
-                        films.add(new Film(response.body().get(i).getName(), response.body().get(i).getPoster()));
+        AsyncTask.execute(()->{
+            call.enqueue(new Callback<ArrayList<FilmsResponse>>() {
+                @Override
+                public void onResponse(Call<ArrayList<FilmsResponse>> call, Response<ArrayList<FilmsResponse>> response) {
+                    if (response.isSuccessful()){
+                        ArrayList<FilmsResponse> films = new ArrayList<>();
+                        films = response.body();
+                        new_films_fragment nff = new new_films_fragment();
+                        nff.adapter = new FilmAdapter(films, context);
                     }
-
-                    new FilmSetter(films);
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<FilmsResponse>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ArrayList<FilmsResponse>> call, Throwable t) {
 
-            }
+                }
+            });
         });
 
     }

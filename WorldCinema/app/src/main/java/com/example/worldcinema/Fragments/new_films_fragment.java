@@ -1,37 +1,33 @@
 package com.example.worldcinema.Fragments;
 
-import android.graphics.Bitmap;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.FrameLayout;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
-import android.widget.ViewSwitcher;
 
-import com.example.worldcinema.MainScreen;
-import com.example.worldcinema.Networking.GetFilms.FilmSetter;
 import com.example.worldcinema.Networking.GetFilms.FilmsMock;
 import com.example.worldcinema.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class new_films_fragment extends Fragment {
+
+    private static Context context;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -40,16 +36,15 @@ public class new_films_fragment extends Fragment {
     private String mParam2;
 
     private RecyclerView recycler;
-    private FilmAdapter adapter;
-    private ArrayList<Film> filmsList;
 
-    public ArrayList<test> testArrayList;
+    public FilmAdapter adapter;
 
     public new_films_fragment() {
 
     }
 
-    public static new_films_fragment newInstance() {
+    public static new_films_fragment newInstance(Context mcontext) {
+        context = mcontext;
         return new new_films_fragment();
     }
 
@@ -72,25 +67,10 @@ public class new_films_fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         recycler = view.findViewById(R.id.recycle);
 
+        new FilmsMock(context);
+
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         recycler.setLayoutManager(manager);
-
-        FilmsMock filmsMock = new FilmsMock();
-
-        filmsList = new ArrayList<>();
-
-        FilmSetter fs = new FilmSetter();
-
-        ArrayList<String> titles = fs.getTitles();
-        ArrayList<Bitmap> images = fs.getCovers();
-
-        for (int i =0; i < titles.size(); i ++){
-            filmsList.add(new Film(titles.get(i), images.get(i)));
-        }
-
-        adapter = new FilmAdapter(filmsList, getContext());
-
-        adapter.notifyDataSetChanged();
 
         recycler.setAdapter(adapter);
     }

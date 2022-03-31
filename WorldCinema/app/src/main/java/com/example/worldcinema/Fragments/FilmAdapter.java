@@ -1,8 +1,6 @@
 package com.example.worldcinema.Fragments;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,62 +10,63 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.worldcinema.Networking.GetFilms.FilmsResponse;
 import com.example.worldcinema.R;
+import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.net.URI;
 import java.util.ArrayList;
 
 public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmHolder> {
 
-    private ArrayList<Film> filmList;
-    private Context mContext;
+    private ArrayList<FilmsResponse> responses;
+    private Context context;
 
-    public FilmAdapter(ArrayList<Film> filmList, Context context){
-        this.filmList = filmList;
-        this.mContext = context;
+    public FilmAdapter(ArrayList<FilmsResponse> responses, Context context){
+        this.context = context;
+        this.responses = responses;
     }
 
-    @NonNull
     @Override
-    public FilmAdapter.FilmHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FilmHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
         View view = inflater.inflate(R.layout.film_cover_item, parent, false);
+
         return new FilmHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FilmAdapter.FilmHolder holder, int position) {
-        final Film film = filmList.get(position);
+    public void onBindViewHolder(@NonNull FilmHolder holder, int position) {
+        final FilmsResponse response = responses.get(position);
 
-        holder.setFilmTitle(film.getTitle());
-        holder.setFilmCover(film.getCover());
+        holder.setTitle(response.getName());
+        holder.setCover(response.getPoster());
     }
 
     @Override
     public int getItemCount() {
-        return filmList == null? 0: filmList.size();
+        return responses == null? 0: responses.size();
     }
 
     public class FilmHolder extends RecyclerView.ViewHolder{
 
-        private TextView filmTitle;
-        private ImageView filmCover;
+        private TextView title;
+        private ImageView cover;
 
         public FilmHolder(@NonNull View itemView) {
             super(itemView);
 
-            filmTitle = itemView.findViewById(R.id.txtTitle);
-            filmCover = itemView.findViewById(R.id.imgCover);
+            title = itemView.findViewById(R.id.txtTitle);
+            cover = itemView.findViewById(R.id.imgCover);
+
         }
 
-        public void setFilmTitle(String title){
-            filmTitle.setText(title);
+        public void setTitle(String title){
+            this.title.setText(title);
         }
 
-        public void setFilmCover(Bitmap resId){
-            filmCover.setImageBitmap(resId);
+        public void setCover(String cover) {
+            Picasso.with(context).load("http://cinema.areas.su/up/images" + cover);
         }
     }
 }

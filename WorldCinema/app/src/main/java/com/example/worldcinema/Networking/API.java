@@ -6,6 +6,7 @@ import com.example.worldcinema.Networking.LogUser.LogBody;
 import com.example.worldcinema.Networking.RegUser.RegBody;
 import com.example.worldcinema.Networking.LogUser.LogResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,7 +23,7 @@ public interface API {
     Call<LogResponse> logUser(@Body LogBody logBody);
 
     @GET("/movies?filter=new")
-    Call<List<FilmsResponse>> getFilms();
+    Call<ArrayList<FilmsResponse>> getFilms();
 
     @GET("/user/chats")
     Call<List<ChatResponse>> getUserChats(@Header("Authorization") String token);

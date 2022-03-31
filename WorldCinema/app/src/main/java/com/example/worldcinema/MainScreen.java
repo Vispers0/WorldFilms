@@ -35,7 +35,7 @@ public class MainScreen extends AppCompatActivity {
 
     public void setMainFragment(){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        new_films_fragment fragment = new_films_fragment.newInstance();
+        new_films_fragment fragment = new_films_fragment.newInstance(MainScreen.this);
         ft.replace(R.id.fragment_dummy, fragment);
         ft.commit();
     }
