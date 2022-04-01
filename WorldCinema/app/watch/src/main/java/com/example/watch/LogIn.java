@@ -1,6 +1,7 @@
 package com.example.watch;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class LogIn extends Activity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()){
+                    startActivity(new Intent(LogIn.this, MainScreen.class));
                     Toast.makeText(LogIn.this, response.body().getToken(), Toast.LENGTH_SHORT).show();
                 }
             }

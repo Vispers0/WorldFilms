@@ -3,17 +3,18 @@
     package="com.example.watch">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-feature android:name="android.hardware.type.watch" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.DeviceDefault">
+        android:theme="@android:style/Theme.DeviceDefault"
+        android:usesCleartextTraffic="true">
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
@@ -27,10 +28,25 @@
             android:value="true" />
 
         <activity
+            android:name=".Films"
+            android:exported="true"
+            android:label="@string/title_activity_films">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".MainScreen"
+            android:exported="true"
+            android:label="@string/title_activity_main_screen" />
+        <activity
             android:name=".LogIn"
             android:exported="true"
-            android:label="@string/title_activity_log_in">
-        </activity>
+            android:label="@string/title_activity_log_in" />
         <activity
             android:name=".Splash"
             android:exported="true"

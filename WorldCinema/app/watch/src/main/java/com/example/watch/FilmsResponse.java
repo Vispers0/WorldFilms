@@ -1,4 +1,4 @@
-package com.example.worldcinema.Networking.GetFilms;
+package com.example.watch;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -13,6 +13,7 @@ public class FilmsResponse {
     private String age;
     @SerializedName("poster")
     private String poster;
+
 
     public String getMovieId() {
         return movieId;
@@ -30,9 +31,13 @@ public class FilmsResponse {
         return age;
     }
 
+
+
     public String getPoster() {
         return poster;
     }
+
+
 
     public void setMovieId(String movieId) {
         this.movieId = movieId;
@@ -54,4 +59,5 @@ public class FilmsResponse {
     public void setPoster(String poster) {
         this.poster = poster;
     }
+
 }

@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center">
 
         <TextView
+            android:textColor="@color/white"
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Sample text"
             android:textStyle="bold"
-            android:textSize="24dp"/>
+            android:textSize="24dp"
+            android:layout_marginBottom="0sp"/>
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="#00000000">
 
             <ImageView
                 android:id="@+id/imgCover"
+                android:layout_gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/film_cover"/>
+                android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
 

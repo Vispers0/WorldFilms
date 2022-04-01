@@ -28,7 +28,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmHolder> {
 
     @Override
     public FilmHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.film_cover_item, parent, false);
 
@@ -66,7 +66,7 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmHolder> {
         }
 
         public void setCover(String cover) {
-            Picasso.with(context).load("http://cinema.areas.su/up/images" + cover);
+            Picasso.with(context).load("http://cinema.areas.su/up/images/" + cover).into(this.cover);
         }
     }
 }

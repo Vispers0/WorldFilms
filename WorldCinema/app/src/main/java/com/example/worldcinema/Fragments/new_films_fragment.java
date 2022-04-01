@@ -1,28 +1,33 @@
 package com.example.worldcinema.Fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.worldcinema.Networking.GetFilms.FilmsMock;
+import com.example.worldcinema.Networking.API;
+import com.example.worldcinema.Networking.GetFilms.FilmsResponse;
 import com.example.worldcinema.R;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class new_films_fragment extends Fragment {
@@ -35,7 +40,7 @@ public class new_films_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private RecyclerView recycler;
+    public RecyclerView recycler;
 
     public FilmAdapter adapter;
 
@@ -67,11 +72,51 @@ public class new_films_fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         recycler = view.findViewById(R.id.recycle);
 
-        new FilmsMock(context);
+        getFilms();
 
+        PagerSnapHelper helper = new PagerSnapHelper();
         LinearLayoutManager manager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        helper.attachToRecyclerView(recycler);
         recycler.setLayoutManager(manager);
+    }
 
-        recycler.setAdapter(adapter);
+    public void getFilms(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://cinema.areas.su")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client.build())
+                .build();
+
+        API api = retrofit.create(API.class);
+
+        Call<ArrayList<FilmsResponse>> call;
+        call = api.getFilms();
+        AsyncTask.execute(()->{
+            call.enqueue(new Callback<ArrayList<FilmsResponse>>() {
+                @Override
+                public void onResponse(Call<ArrayList<FilmsResponse>> call, Response<ArrayList<FilmsResponse>> response) {
+                    if (response.isSuccessful()){
+                        ArrayList<FilmsResponse> films = new ArrayList<>();
+                        films = response.body();
+
+                        FilmAdapter adapter = new FilmAdapter(films, getContext());
+
+                        recycler.setAdapter(adapter);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<FilmsResponse>> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        });
+
     }
 }
