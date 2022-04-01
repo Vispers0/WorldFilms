@@ -15,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
+//Методы API, которые вызываются в проекте
 public interface API {
     @POST("/auth/register")
     Call<Void> regUser(@Body RegBody regBody);

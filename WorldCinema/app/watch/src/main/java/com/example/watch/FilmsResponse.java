@@ -2,6 +2,7 @@ package com.example.watch;
 
 import com.google.gson.annotations.SerializedName;
 
+//Модель ответа сервера по запросу фильмов
 public class FilmsResponse {
     @SerializedName("movieId")
     private String movieId;

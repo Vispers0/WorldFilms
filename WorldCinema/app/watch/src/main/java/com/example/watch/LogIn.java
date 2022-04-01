@@ -34,6 +34,7 @@ public class LogIn extends Activity {
         password = findViewById(R.id.et_password);
     }
 
+    //Авторизация пользователя
     public void log_user(View v){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);

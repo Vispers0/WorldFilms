@@ -2,6 +2,7 @@ package com.example.watch;
 
 import com.google.gson.annotations.SerializedName;
 
+//Тело запроса авторизации
 public class LoginBody {
     @SerializedName("email")
     public String email;

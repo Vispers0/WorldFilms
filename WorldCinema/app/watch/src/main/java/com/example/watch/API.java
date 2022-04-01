@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+//Методы API, которые вызываются в проекте
 public interface API {
     @POST("/auth/login")
     Call<LoginResponse> log_user(@Body LoginBody loginBody);

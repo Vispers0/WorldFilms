@@ -54,6 +54,7 @@ public class ChatMock {
         getChats();
     }
 
+    //Парсинг чатов пользователя
     public void getChats(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);

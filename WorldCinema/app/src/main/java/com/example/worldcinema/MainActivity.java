@@ -27,10 +27,12 @@ public class MainActivity extends AppCompatActivity {
         et_password = findViewById(R.id.act_log_et_password);
     }
 
+    //Переход на активность регистрации
     public void register_click(View view){
         startActivity(new Intent(MainActivity.this, com.example.worldcinema.register.class));
     }
 
+    //Вход пользователя
     public void login_click(View view){
         email = et_email.getText().toString();
         password = et_password.getText().toString();

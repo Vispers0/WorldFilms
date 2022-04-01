@@ -23,13 +23,14 @@ public class register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         getSupportActionBar().hide();
 
+        //Инициализация полей
         et_email = findViewById(R.id.act_reg_ed_email);
         et_firstName = findViewById(R.id.act_reg_ed_firstname);
         et_lastName = findViewById(R.id.act_reg_ed_lastname);
         et_password = findViewById(R.id.act_reg_ed_password);
         et_repeat = findViewById(R.id.act_reg_ed_password_repeat);
     }
-
+    //Регистрация пользователя
     public void r_register_click(View view){
         email = et_email.getText().toString();
         firstName = et_firstName.getText().toString();
@@ -45,10 +46,12 @@ public class register extends AppCompatActivity {
         }
     }
 
+    //Переход на активность входа
     public void have_acc_click(View view){
         startActivity(new Intent(register.this, MainActivity.class));
     }
 
+    //Валидация полей
     private boolean validate(){
         if (email.equals("")){
             Toast.makeText(register.this, "Введите электронную почту", Toast.LENGTH_SHORT).show();

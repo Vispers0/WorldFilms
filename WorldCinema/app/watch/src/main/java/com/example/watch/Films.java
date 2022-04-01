@@ -38,6 +38,7 @@ public class Films extends Activity {
         getFilms();
     }
 
+    //Парсинг фильмов
     public void getFilms(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);

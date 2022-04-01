@@ -31,6 +31,7 @@ public class RegMock {
         register_user();
     }
 
+    //Регистрация пользователя
     public void register_user(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

@@ -14,6 +14,7 @@ public class splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
 
+        //Отображение экрана 2 секунды
         Thread timer = new Thread(){
             public void run(){
                 try {

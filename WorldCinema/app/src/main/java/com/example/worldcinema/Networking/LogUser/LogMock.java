@@ -45,6 +45,7 @@ public class LogMock {
         log_user();
     }
 
+    //Авторизация пользователя
     public void log_user(){
         LogBody logBody = new LogBody(email, password);
 

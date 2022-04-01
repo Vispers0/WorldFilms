@@ -2,6 +2,7 @@ package com.example.worldcinema.Networking.GetChats;
 
 import com.google.gson.annotations.SerializedName;
 
+//Модель ответа сервера по запросу чатов
 public class ChatResponse {
     @SerializedName("chatId")
     private String chatID;

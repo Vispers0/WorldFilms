@@ -19,6 +19,7 @@ public class Splash extends Activity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //Загрузочный экран на 2 секунды
         Thread timer = new Thread(){
             public void run(){
                 try {

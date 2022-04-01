@@ -32,6 +32,7 @@ public class Chats extends AppCompatActivity {
         listView = findViewById(R.id.chats_lv);
         chats = new ArrayList<>();
 
+        //Получение списка чатов пользователя
         Bundle v = this.getIntent().getExtras();
         chats = (ArrayList<ChatInfo>) v.getSerializable("chats");
 

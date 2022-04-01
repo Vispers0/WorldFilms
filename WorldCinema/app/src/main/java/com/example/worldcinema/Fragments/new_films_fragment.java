@@ -68,6 +68,7 @@ public class new_films_fragment extends Fragment {
         return inflater.inflate(R.layout.fragment_new_films_fragment, container, false);
     }
 
+    //Заполнение RecyclerView фильмами
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         recycler = view.findViewById(R.id.recycle);
@@ -80,6 +81,7 @@ public class new_films_fragment extends Fragment {
         recycler.setLayoutManager(manager);
     }
 
+    //Парсинг фильмов
     public void getFilms(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
