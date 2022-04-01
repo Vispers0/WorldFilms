@@ -3,18 +3,26 @@
     <item
         android:id="@+id/main"
         android:title="Главное"
-        android:icon="@drawable/btn_main"/>
+        android:icon="@drawable/btn_main"
+        android:onClick="setMainFragmentClick"
+        android:iconTint="#FF0000"/>
     <item
         android:id="@+id/compilation"
         android:title="Подборка"
-        android:icon="@drawable/btn_comp"/>
+        android:icon="@drawable/btn_comp"
+        android:iconTintMode="add"
+        android:iconTint="#FF0000"/>
     <item
         android:id="@+id/collections"
         android:title="Коллекции"
-        android:icon="@drawable/btn_collections"/>
+        android:icon="@drawable/btn_collections"
+        android:iconTintMode="add"
+        android:iconTint="#FF0000"/>
     <item
         android:id="@+id/profile"
         android:title="Профиль"
         android:onClick="setProfileFragment"
-        android:icon="@drawable/btn_profile"/>
+        android:icon="@drawable/btn_profile"
+        android:iconTintMode="add"
+        android:iconTint="#FF0000"/>
 </menu>

@@ -18,6 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#1C1A19"
+        app:itemIconTint="@color/btn_active_color"
+        app:itemTextColor="@color/btn_active_color"
         app:menu="@menu/menu" />
 
 </RelativeLayout>

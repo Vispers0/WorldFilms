@@ -40,6 +40,13 @@ public class MainScreen extends AppCompatActivity {
         ft.commit();
     }
 
+    public void setMainFragmentClick(MenuItem item){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        new_films_fragment fragment = new_films_fragment.newInstance(MainScreen.this);
+        ft.replace(R.id.fragment_dummy, fragment);
+        ft.commit();
+    }
+
     public void setProfileFragment(MenuItem item){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         profile fragment = profile.newInstance();
