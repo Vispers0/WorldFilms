@@ -36,12 +36,14 @@ public class LogIn extends Activity {
 
     //Авторизация пользователя
     public void log_user(View v){
+        ///Interceptor и Client для вывода логов при работе в сети
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor);
 
+        //Retrofit - библиотека, с помощью которой ведётся работа с сервером
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://cinema.areas.su")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -50,8 +52,10 @@ public class LogIn extends Activity {
 
         API api = retrofit.create(API.class);
 
+        //LoginBody содержит тело запроса
         LoginBody lb = new LoginBody(email.getText().toString(), password.getText().toString());
 
+        //Авторизация пользователя
         Call<LoginResponse> call;
         call = api.log_user(lb);
         call.enqueue(new Callback<LoginResponse>() {

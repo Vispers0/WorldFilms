@@ -33,12 +33,14 @@ public class RegMock {
 
     //Регистрация пользователя
     public void register_user(){
+        ///Interceptor и Client для вывода логов при работе в сети
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor);
 
+        //Retrofit - библиотека, с помощью которой ведётся работа с сервером
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://cinema.areas.su")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -47,13 +49,14 @@ public class RegMock {
 
         API api = retrofit.create(API.class);
 
+        //RegBody содержит тело запроса
         RegBody body = new RegBody();
         body.email = email;
         body.firstname = firstname;
         body.lastname = lastname;
         body.password = password;
 
-
+        //Регистрация пользователя
         AsyncTask.execute(()->{
             Call<Void> call;
             call = api.regUser(body);

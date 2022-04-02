@@ -40,12 +40,14 @@ public class Films extends Activity {
 
     //Парсинг фильмов
     public void getFilms(){
+        ///Interceptor и Client для вывода логов при работе в сети
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor);
 
+        //Retrofit - библиотека, с помощью которой ведётся работа с сервером
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://cinema.areas.su")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -57,6 +59,7 @@ public class Films extends Activity {
         Call<List<FilmsResponse>> call;
         call = api.get_films();
 
+        //Запрос списка фильмов
         AsyncTask.execute(()->{
             call.enqueue(new Callback<List<FilmsResponse>>() {
                 @Override

@@ -48,6 +48,7 @@ public class new_films_fragment extends Fragment {
 
     }
 
+    //Создание фрагмента
     public static new_films_fragment newInstance(Context mcontext) {
         context = mcontext;
         return new new_films_fragment();
@@ -63,6 +64,7 @@ public class new_films_fragment extends Fragment {
         }
     }
 
+    //Получение разметки для фрагмента
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_new_films_fragment, container, false);
@@ -83,12 +85,14 @@ public class new_films_fragment extends Fragment {
 
     //Парсинг фильмов
     public void getFilms(){
+        ///Interceptor и Client для вывода логов при работе в сети
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor);
 
+        //Retrofit - библиотека, с помощью которой ведётся работа с сервером
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://cinema.areas.su")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -97,6 +101,7 @@ public class new_films_fragment extends Fragment {
 
         API api = retrofit.create(API.class);
 
+        //Получение списка новых фильмов
         Call<ArrayList<FilmsResponse>> call;
         call = api.getFilms();
         AsyncTask.execute(()->{

@@ -49,12 +49,13 @@ public class LogMock {
     public void log_user(){
         LogBody logBody = new LogBody(email, password);
 
+        ///Interceptor и Client для вывода логов при работе в сети
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor);
-
+        //Retrofit - библиотека, с помощью которой ведётся работа с сервером
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://cinema.areas.su")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -63,6 +64,7 @@ public class LogMock {
 
         API api = retrofit.create(API.class);
 
+        //Авторизация пользователя
         Call<LogResponse> call;
         call = api.logUser(logBody);
         call.enqueue(new Callback<LogResponse>() {
@@ -70,6 +72,8 @@ public class LogMock {
             public void onResponse(Call<LogResponse> call, Response<LogResponse> response) {
                 if (response.isSuccessful()){
                     context.startActivity(new Intent(context, MainScreen.class));
+
+                    //Сохранения токена в глобальных настройках приложения
                     int token = response.body().get_token();
                     editor.putString(APP_PREFERENCES_TOKEN, String.valueOf(token));
                     editor.apply();
